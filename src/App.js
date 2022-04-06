@@ -1,38 +1,28 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 // 함수를 사용해 app 컴포넌트를 생성한다.
 function App() {
-  const onSubmit = (event) => {
-    event.preventDefault();
-    console.log(username, password);
-    // alert("submitted")
-  };
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-// -------------------------------------------------
+  const [count, setCount] = useState(0);
+  const [haneul, setHaneul] = useState(0);
+  const increment = () => {
+    setCount(count + 1);
+  }
+  useEffect(() =>{
+    console.log(count, haneul)
+  },[count, haneul]) //[]안에 useState 값을 설정해주면 그 값이 바뀔때만 useEffect가 실행된다.
+
+  useEffect(()=>{
+    console.log("First rendering")
+  },[]) // []값을 빈 공간으로 설정하면 초기 처음에만 실행되고 다음에는 실행되지 않는다.
+ // -------------------------------------------------
   return (  
     <div className="App">
-      <form onSubmit={onSubmit}>
-        <input placeholder='Username'
-        value={username}
-        onChange={(e)=> setUsername(e.target.value)}
-        /><br/>
-
-        <input placeholder='Password' 
-        value={password}
-        onChange={(e)=> setPassword(e.target.value)}
-        /><br/>
-
-        <button>Login</button>
-      </form>
+      <h1>Haneul coder</h1>
+      <button onClick={increment}>Click</button>
+      <button onClick={()=> setHaneul(haneul + 1)}>Click</button>
     </div>
   );
 }
 // ------------------------------------------------
 export default App;
 
-// ()=> alert("submit") onClick내부에는 함수 형식이 들어가야한다.
-// onKeyUp 함수 내부에 event의 keyCode 값이 13(enter)일 때 onSubmit() 함수를 실행하도록 설정한다.
-// jsx에서 변수를 사용하고 싶을 때는 {} 중괄호 사이에 넣어 주면 된다.
-// useState를 활용하면 setText를 활용해 변수를 쉽게 변화 시킬 수 있다.
-// onchange={} text 값이 바뀔 떄마다 이벤트를 보내준다.
-// onSubmit={} 형태는 이벤트 발동이다. {} 안에 함수를 실행 할 수 있다.
+// useEffect를 사용하면 컴포넌트가 렌더링 될때마다 어떤 실행을 요청 할 수 있다.
